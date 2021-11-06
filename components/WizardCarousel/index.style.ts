@@ -9,16 +9,17 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   cardContent: {
-    flex: 0.5,
     margin: 10,
     padding: 20,
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
-    shadowOpacity: 0.5,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    borderColor: "#00000000",
+    borderWidth: 0,
     elevation: 5,
   },
   cardTitle: {

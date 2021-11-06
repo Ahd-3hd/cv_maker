@@ -2,8 +2,10 @@ import React, { useRef, useEffect, useState } from "react";
 import { Animated, View, Text } from "react-native";
 import Styles from "./index.style";
 import { useWindowDimensions } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import Input from "../InputField";
+import { setUserInputs } from "../../redux/slices/cvSlice";
 
 const useCounter = () => {
   const [counter, setCounter] = useState(0);
@@ -19,10 +21,15 @@ const useCounter = () => {
   return [counter];
 };
 
+//TODO: something wrong with the shadow
+
 export default function WizardCarousel() {
+  const dispatch = useDispatch();
   const [counter] = useCounter();
   const { width } = useWindowDimensions();
-  const { progress, questions } = useSelector((state: RootState) => state.cv);
+  const { progress, questions, userInputs } = useSelector(
+    (state: RootState) => state.cv
+  );
   const counterValue = useRef(counter);
 
   const position = useRef(new Animated.Value(progress));
@@ -36,12 +43,16 @@ export default function WizardCarousel() {
     }).start();
   }, [progress]);
 
+  const handleInputChange = (val: string, id: string) => {
+    dispatch(setUserInputs({ ...userInputs, [id]: val }));
+  };
+
   return (
     <View style={Styles.container}>
-      {questions.map((entry, i) => {
+      {questions.map((entry) => {
         return (
           <Animated.View
-            key={entry.question}
+            key={entry.id}
             style={[
               {
                 ...Styles.animatedContainer,
@@ -58,6 +69,10 @@ export default function WizardCarousel() {
           >
             <View style={Styles.cardContent}>
               <Text style={Styles.cardTitle}>{entry.question}</Text>
+              <Input
+                placeholder="eg; John Doe"
+                onChangeText={(val) => handleInputChange(val, entry.id)}
+              />
             </View>
           </Animated.View>
         );

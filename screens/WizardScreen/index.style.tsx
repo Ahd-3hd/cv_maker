@@ -23,4 +23,7 @@ export default StyleSheet.create({
   progressBar: {
     alignSelf: "center",
   },
+  buttonContainer: {
+    paddingHorizontal: 20,
+  },
 });

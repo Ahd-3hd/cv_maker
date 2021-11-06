@@ -10,21 +10,32 @@ import WizardCarousel from "../../components/WizardCarousel";
 
 export default function WizardScreen() {
   const dispatch = useDispatch();
-  const { progress, questions } = useSelector((state: RootState) => state.cv);
+  const { progress, questions, userInputs } = useSelector(
+    (state: RootState) => state.cv
+  );
 
   const handleProgress = () => {
-    dispatch(setProgress(progress + 1));
+    console.log(progress / questions.length);
+    if (progress < questions.length - 1) {
+      dispatch(setProgress(progress + 1));
+    } else {
+      console.log(userInputs);
+      // TODO: send to back end
+    }
   };
 
   return (
     <SafeAreaView style={Styles.container}>
       <Text style={Styles.title}>Wizard Screen</Text>
-      <Bar
-        progress={Math.round((progress / questions.length - 1) * 100) / 100}
-        style={Styles.progressBar}
-      />
+      <Bar progress={progress / questions.length} style={Styles.progressBar} />
       <WizardCarousel />
-      <PrimaryButton title="Next" onPress={handleProgress} />
+
+      <View style={Styles.buttonContainer}>
+        <PrimaryButton
+          title={progress === questions.length - 1 ? "SUBMIT" : "NEXT"}
+          onPress={handleProgress}
+        />
+      </View>
     </SafeAreaView>
   );
 }

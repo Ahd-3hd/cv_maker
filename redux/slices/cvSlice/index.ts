@@ -4,55 +4,55 @@ const initialState = {
   progress: 0,
   questions: [
     {
+      id: "name",
       question: "Enter your full name",
     },
     {
+      id: "position",
       question: "Enter your position",
     },
     {
+      id: "summary",
       question: "Enter summary",
     },
     {
+      id: "email",
       question: "Enter your email",
     },
     {
+      id: "phone",
       question: "Enter your phone number",
     },
     {
+      id: "linkedin",
       question: "Enter your linkedin profile link",
     },
     {
+      id: "website",
       question: "Enter your website",
     },
     {
+      id: "jobTitle",
       question: "Enter Job title",
     },
     {
+      id: "companyName",
       question: "Enter company name",
     },
     {
+      id: "educationName",
       question: "Enter instituation name",
     },
     {
+      id: "skills",
       question: "Enter your skills",
     },
     {
+      id: "languages",
       question: "Enter languages you speak",
     },
   ],
-  fullName: "",
-  position: "",
-  summary: "",
-  contactInformation: {
-    email: "",
-    phoneNumber: "",
-    linkedin: "",
-    website: "",
-  },
-  jobExperience: [],
-  education: [],
-  skills: [],
-  languages: [],
+  userInputs: {},
 };
 
 const cvSlice = createSlice({
@@ -65,44 +65,13 @@ const cvSlice = createSlice({
     setProgress: (state, action) => {
       state.progress = action.payload;
     },
-    setFullName: (state, action) => {
-      state.fullName = action.payload;
-    },
-    setPosition: (state, action) => {
-      state.position = action.payload;
-    },
-    setSummary: (state, action) => {
-      state.summary = action.payload;
-    },
-    setContactInformation: (state, action) => {
-      state.contactInformation = action.payload;
-    },
-    setJobExperience: (state, action) => {
-      state.jobExperience = action.payload;
-    },
-    setEducation: (state, action) => {
-      state.education = action.payload;
-    },
-    setSkills: (state, action) => {
-      state.skills = action.payload;
-    },
-    setLanguages: (state, action) => {
-      state.languages = action.payload;
+
+    setUserInputs: (state, action) => {
+      state.userInputs = action.payload;
     },
   },
 });
 
-export const {
-  setProgress,
-  setFullName,
-  setPosition,
-  setSummary,
-  setContactInformation,
-  setJobExperience,
-  setEducation,
-  setSkills,
-  setLanguages,
-  setQuestions,
-} = cvSlice.actions;
+export const { setProgress, setQuestions, setUserInputs } = cvSlice.actions;
 
 export default cvSlice.reducer;
