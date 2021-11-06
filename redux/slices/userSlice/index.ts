@@ -28,7 +28,7 @@ const userSlice = createSlice({
 
     builder.addCase(login.rejected, (state, { payload }) => {
       state.loading = false;
-      state.loginError = false;
+      state.loginError = true;
     });
   },
 });
