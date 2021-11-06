@@ -18,7 +18,7 @@ export default function MainNavigator() {
           headerShown: false,
         }}
       >
-        {loggedIn ? (
+        {true || loggedIn ? (
           <>
             <Stack.Screen name="Home" component={HomeScreen} />
           </>
