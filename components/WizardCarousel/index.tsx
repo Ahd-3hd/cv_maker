@@ -7,6 +7,7 @@ import { RootState } from "../../redux/store";
 import Input from "../InputField";
 import { setProgress, setUserInputs } from "../../redux/slices/cvSlice";
 import PrimaryButton from "../PrimaryButton";
+import { submit } from "../../redux/slices/cvSlice/actions";
 
 const useCounter = () => {
   const [counter, setCounter] = useState(0);
@@ -54,6 +55,7 @@ export default function WizardCarousel() {
     if (progress < questions.length - 1 && currentInputLength > 3) {
       dispatch(setProgress(progress + 1));
     } else {
+      dispatch(submit(userInputs));
       console.log(userInputs);
       // TODO: send to back end
     }
