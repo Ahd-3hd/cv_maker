@@ -5,6 +5,7 @@ import LoginScreen from "../../screens/LoginScreen";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import HomeScreen from "../../screens/HomeScreen";
+import SignupScreen from "../../screens/SignupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,10 @@ export default function MainNavigator() {
             <Stack.Screen name="Home" component={HomeScreen} />
           </>
         ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import CustomButton from "../../components/CustomButton";
+import PrimaryButton from "../../components/PrimaryButton";
 import Input from "../../components/InputField";
 import { login } from "../../redux/slices/userSlice/actions";
 import Styles from "./index.style";
 import { RootState } from "../../redux/store";
+import SecondaryButton from "../../components/SecondaryButton";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }: { navigation: any }) {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -32,6 +33,10 @@ export default function LoginScreen() {
     }));
   };
 
+  const navigateToSignup = () => {
+    return navigation.navigate("Signup");
+  };
+
   return (
     <View style={Styles.container}>
       <View style={Styles.form}>
@@ -51,10 +56,14 @@ export default function LoginScreen() {
         <Text style={Styles.error}>
           {loginError && "Double check your credentials"}
         </Text>
-        <CustomButton
+        <PrimaryButton
           title="Login"
           onPress={handleLogin}
           disabled={!credentials.email && !credentials.password}
+        />
+        <SecondaryButton
+          title="Create a new account"
+          onPress={navigateToSignup}
         />
       </View>
     </View>

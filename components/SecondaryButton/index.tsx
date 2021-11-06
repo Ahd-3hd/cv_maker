@@ -11,7 +11,7 @@ interface IButtonProps extends TouchableOpacityProps {
   title: string;
 }
 
-export default function CustomButton(props: IButtonProps) {
+export default function SecondaryButton(props: IButtonProps) {
   return (
     <TouchableOpacity {...props} style={Style.button}>
       <Text style={Style.title}>{props.title}</Text>
