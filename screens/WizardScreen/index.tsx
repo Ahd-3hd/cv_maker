@@ -8,20 +8,7 @@ import { setProgress } from "../../redux/slices/cvSlice";
 import WizardCarousel from "../../components/WizardCarousel";
 
 export default function WizardScreen() {
-  const dispatch = useDispatch();
-  const { progress, questions, userInputs } = useSelector(
-    (state: RootState) => state.cv
-  );
-
-  const handleProgress = () => {
-    console.log(progress / questions.length);
-    if (progress < questions.length - 1) {
-      dispatch(setProgress(progress + 1));
-    } else {
-      console.log(userInputs);
-      // TODO: send to back end
-    }
-  };
+  const { progress, questions } = useSelector((state: RootState) => state.cv);
 
   return (
     <SafeAreaView style={Styles.container}>
