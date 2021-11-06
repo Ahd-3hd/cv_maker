@@ -27,4 +27,7 @@ export default StyleSheet.create({
     color: "#424242",
     fontFamily: "Poppins_600SemiBold",
   },
+  buttonContainer: {
+    paddingHorizontal: 20,
+  },
 });

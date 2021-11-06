@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { submit } from "./actions";
 
 const initialState = {
   progress: 0,
@@ -53,6 +54,9 @@ const initialState = {
     },
   ],
   userInputs: {},
+  submitLoading: false,
+  submitError: false,
+  pdfUrl: "",
 };
 
 const cvSlice = createSlice({
@@ -69,6 +73,21 @@ const cvSlice = createSlice({
     setUserInputs: (state, action) => {
       state.userInputs = action.payload;
     },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(submit.pending, (state, { payload }) => {
+      state.submitLoading = true;
+    });
+    builder.addCase(submit.fulfilled, (state, { payload }) => {
+      state.submitLoading = false;
+      state.submitError = false;
+      state.pdfUrl = payload;
+    });
+    builder.addCase(submit.rejected, (state, { payload }) => {
+      state.submitLoading = false;
+      state.submitError = true;
+    });
   },
 });
 

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Text, View, SafeAreaView } from "react-native";
-import PrimaryButton from "../../components/PrimaryButton";
+import React from "react";
+import { Text, SafeAreaView } from "react-native";
 import Styles from "./index.style";
 import { Bar } from "react-native-progress";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,13 +28,6 @@ export default function WizardScreen() {
       <Text style={Styles.title}>Wizard Screen</Text>
       <Bar progress={progress / questions.length} style={Styles.progressBar} />
       <WizardCarousel />
-
-      <View style={Styles.buttonContainer}>
-        <PrimaryButton
-          title={progress === questions.length - 1 ? "SUBMIT" : "NEXT"}
-          onPress={handleProgress}
-        />
-      </View>
     </SafeAreaView>
   );
 }

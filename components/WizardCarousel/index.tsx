@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Animated, View, Text } from "react-native";
+import { Animated, View, Text, ScrollView } from "react-native";
 import Styles from "./index.style";
 import { useWindowDimensions } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import Input from "../InputField";
-import { setUserInputs } from "../../redux/slices/cvSlice";
+import { setProgress, setUserInputs } from "../../redux/slices/cvSlice";
+import PrimaryButton from "../PrimaryButton";
 
 const useCounter = () => {
   const [counter, setCounter] = useState(0);
@@ -27,6 +28,7 @@ export default function WizardCarousel() {
   const dispatch = useDispatch();
   const [counter] = useCounter();
   const { width } = useWindowDimensions();
+  const [currentInputLength, setCurrentInputLength] = useState(0);
   const { progress, questions, userInputs } = useSelector(
     (state: RootState) => state.cv
   );
@@ -44,39 +46,57 @@ export default function WizardCarousel() {
   }, [progress]);
 
   const handleInputChange = (val: string, id: string) => {
+    setCurrentInputLength(val.length);
     dispatch(setUserInputs({ ...userInputs, [id]: val }));
   };
 
+  const handleProgress = () => {
+    if (progress < questions.length - 1 && currentInputLength > 3) {
+      dispatch(setProgress(progress + 1));
+    } else {
+      console.log(userInputs);
+      // TODO: send to back end
+    }
+  };
+
   return (
-    <View style={Styles.container}>
-      {questions.map((entry) => {
-        return (
-          <Animated.View
-            key={entry.id}
-            style={[
-              {
-                ...Styles.animatedContainer,
-                width: width,
-              },
-              {
-                transform: [
-                  {
-                    translateX: position.current,
-                  },
-                ],
-              },
-            ]}
-          >
-            <View style={Styles.cardContent}>
-              <Text style={Styles.cardTitle}>{entry.question}</Text>
-              <Input
-                placeholder="eg; John Doe"
-                onChangeText={(val) => handleInputChange(val, entry.id)}
-              />
-            </View>
-          </Animated.View>
-        );
-      })}
+    <View style={{ flex: 1 }}>
+      <View style={Styles.container}>
+        {questions.map((entry) => {
+          return (
+            <Animated.View
+              key={entry.id}
+              style={[
+                {
+                  ...Styles.animatedContainer,
+                  width: width,
+                },
+                {
+                  transform: [
+                    {
+                      translateX: position.current,
+                    },
+                  ],
+                },
+              ]}
+            >
+              <View style={Styles.cardContent}>
+                <Text style={Styles.cardTitle}>{entry.question}</Text>
+                <Input
+                  placeholder="eg; John Doe"
+                  onChangeText={(val) => handleInputChange(val, entry.id)}
+                />
+              </View>
+            </Animated.View>
+          );
+        })}
+      </View>
+      <View style={Styles.buttonContainer}>
+        <PrimaryButton
+          title={progress === questions.length - 1 ? "SUBMIT" : "NEXT"}
+          onPress={handleProgress}
+        />
+      </View>
     </View>
   );
 }
