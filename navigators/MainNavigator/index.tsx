@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import HomeScreen from "../../screens/HomeScreen";
 import SignupScreen from "../../screens/SignupScreen";
+import WizardScreen from "../../screens/WizardScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function MainNavigator() {
       >
         {true || loggedIn ? (
           <>
+            <Stack.Screen name="Wizard" component={WizardScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
           </>
         ) : (
