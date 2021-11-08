@@ -82,7 +82,7 @@ const cvSlice = createSlice({
     builder.addCase(submit.fulfilled, (state, { payload }) => {
       state.submitLoading = false;
       state.submitError = false;
-      state.pdfUrl = payload;
+      state.pdfUrl = payload.data.pdf;
     });
     builder.addCase(submit.rejected, (state, { payload }) => {
       state.submitLoading = false;

@@ -25,7 +25,7 @@ const useCounter = () => {
 
 //TODO: something wrong with the shadow
 
-export default function WizardCarousel() {
+export default function WizardCarousel({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const [counter] = useCounter();
   const { width } = useWindowDimensions();
@@ -51,12 +51,17 @@ export default function WizardCarousel() {
     dispatch(setUserInputs({ ...userInputs, [id]: val }));
   };
 
-  const handleProgress = () => {
+  const handleProgress = async () => {
     if (progress < questions.length - 1 && currentInputLength > 3) {
       dispatch(setProgress(progress + 1));
     } else {
-      dispatch(submit(userInputs));
-      console.log(userInputs);
+      try {
+        await dispatch(submit(userInputs));
+        navigation.navigate("PdfScreen");
+      } catch (error) {
+        console.log(error);
+      }
+
       // TODO: send to back end
     }
   };

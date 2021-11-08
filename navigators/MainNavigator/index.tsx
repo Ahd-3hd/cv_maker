@@ -7,11 +7,13 @@ import { RootState } from "../../redux/store";
 import HomeScreen from "../../screens/HomeScreen";
 import SignupScreen from "../../screens/SignupScreen";
 import WizardScreen from "../../screens/WizardScreen";
+import PdfScreen from "../../screens/PdfScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   const { loggedIn } = useSelector((state: RootState) => state.user);
+  const cv = useSelector((state: RootState) => state.cv);
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -19,10 +21,11 @@ export default function MainNavigator() {
           headerShown: false,
         }}
       >
-        {true || loggedIn ? (
+        {loggedIn ? (
           <>
-            <Stack.Screen name="Wizard" component={WizardScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Wizard" component={WizardScreen} />
+            <Stack.Screen name="PdfScreen" component={PdfScreen} />
           </>
         ) : (
           <>
